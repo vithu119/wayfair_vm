@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+
+# Outputs (runtime data — not part of source)
+outputs/
+# Keep template profiles in source
+!outputs/template_profiles/
+!outputs/template_profiles/*.json
+
+# Frontend
+frontend/node_modules/
+
+# Local env
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
