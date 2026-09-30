@@ -1,0 +1,498 @@
+# Wayfair Auto-Fill Field Mappings
+# =================================
+# Each entry maps one or more source column names (aliases) to an exact
+# Wayfair template header.  The engine tries each alias in order and uses the
+# first one found in the source row.
+#
+# Fields:
+#   wayfair_field   - exact header text from the Wayfair template (case-sensitive)
+#   aliases         - list of source column names (case-insensitive match)
+#   categories      - ["all"] or a list of category names this mapping applies to
+#   transform       - optional transformation (see transformation_rules.yaml)
+#   fixed_value     - write this value regardless of source data
+#   default_value   - use this when source column is present but empty
+#   required        - emit a warning in the fill report if still empty after mapping
+#   notes           - human-readable context
+
+mappings:
+
+  # ── Identity / Catalogue ─────────────────────────────────────────────────
+
+  - wayfair_field: "Supplier Part Number"
+    aliases: [sku, part_number, supplier_part_number, item_number, style_number, product_code]
+    categories: ["all"]
+    required: true
+
+  - wayfair_field: "Amazon Seller SKU"
+    aliases: [amazon_sku, asin, amazon_seller_sku, amz_sku]
+    categories: ["all"]
+
+  - wayfair_field: "European Article Number"
+    aliases: [ean, ean13, barcode, ean_barcode, gtin, upc]
+    categories: ["all"]
+
+  - wayfair_field: "Brand"
+    aliases: [brand, manufacturer, brand_name]
+    categories: ["all"]
+    required: true
+
+  - wayfair_field: "Manufacturer Part Number"
+    aliases: [mpn, manufacturer_part_number, mfr_part_number, model_number, model_no, sku, supplier_part_number]
+    categories: ["all"]
+    required: true
+    transform: "prefix:WF-"
+
+  - wayfair_field: "Product Name"
+    aliases: [product_name, title, name, product_title, item_name]
+    categories: ["all"]
+    transform: truncate:500
+    required: true
+
+  - wayfair_field: "Collection Name"
+    aliases: [collection, collection_name, series, range_name, line_name]
+    categories: ["all"]
+
+  - wayfair_field: "Manufacturer Product URL"
+    aliases: [product_url, manufacturer_url, product_link, item_url]
+    categories: ["all"]
+
+  - wayfair_field: "Group Reference ID"
+    aliases: [group_id, group_reference_id, variant_group_id, parent_sku]
+    categories: ["all"]
+
+  # ── Variant ───────────────────────────────────────────────────────────────
+
+  - wayfair_field: "Variant Type"
+    aliases: [variant_type]
+    categories: ["all"]
+
+  - wayfair_field: "Variant Grouping 1"
+    aliases: [variant_grouping_1, variant_group_1]
+    categories: ["all"]
+
+  - wayfair_field: "Variant Attribute Name On Site 1"
+    aliases: [variant_attribute_1, variant_value_1, variant_name_1]
+    categories: ["all"]
+
+  - wayfair_field: "Variant Grouping 2"
+    aliases: [variant_grouping_2, variant_group_2]
+    categories: ["all"]
+
+  - wayfair_field: "Variant Attribute Name On Site 2"
+    aliases: [variant_attribute_2, variant_value_2, variant_name_2]
+    categories: ["all"]
+
+  - wayfair_field: "Variant Grouping 3"
+    aliases: [variant_grouping_3, variant_group_3]
+    categories: ["all"]
+
+  - wayfair_field: "Variant Attribute Name On Site 3"
+    aliases: [variant_attribute_3, variant_value_3, variant_name_3]
+    categories: ["all"]
+
+  # ── Pricing ───────────────────────────────────────────────────────────────
+
+  - wayfair_field: "Base Cost"
+    aliases: [cost, base_cost, __base_cost__, wholesale_price, buy_price, net_price, trade_price]
+    categories: ["all"]
+    transform: number
+    required: true
+
+  - wayfair_field: "Manufacturer Suggested Retail Price"
+    aliases: [msrp, rrp, retail_price, recommended_retail_price, list_price]
+    categories: ["all"]
+    transform: number
+
+  - wayfair_field: "Everyday B2B Discount Rate"
+    aliases: [b2b_discount, trade_discount, b2b_discount_rate]
+    categories: ["all"]
+    transform: number
+
+  # ── Marketing Content ─────────────────────────────────────────────────────
+
+  - wayfair_field: "Marketing Copy"
+    aliases: [description, marketing_copy, product_description, long_description, copy, amazon_description, item_description]
+    categories: ["all"]
+    transform: marketing_copy
+
+  - wayfair_field: "Feature Bullet 1"
+    aliases: [bullet_1, feature_1, feature_bullet_1, bullet_point_1]
+    categories: ["all"]
+    transform: truncate:500
+
+  - wayfair_field: "Feature Bullet 2"
+    aliases: [bullet_2, feature_2, feature_bullet_2, bullet_point_2]
+    categories: ["all"]
+    transform: truncate:500
+
+  - wayfair_field: "Feature Bullet 3"
+    aliases: [bullet_3, feature_3, feature_bullet_3, bullet_point_3]
+    categories: ["all"]
+    transform: truncate:500
+
+  - wayfair_field: "Feature Bullet 4"
+    aliases: [bullet_4, feature_4, feature_bullet_4, bullet_point_4]
+    categories: ["all"]
+    transform: truncate:500
+
+  - wayfair_field: "Feature Bullet 5"
+    aliases: [bullet_5, feature_5, feature_bullet_5, bullet_point_5]
+    categories: ["all"]
+    transform: truncate:500
+
+  # ── Order Quantities ──────────────────────────────────────────────────────
+
+  - wayfair_field: "Minimum Order Quantity"
+    aliases: [moq, min_qty, minimum_order_quantity, min_order_qty]
+    categories: ["all"]
+    transform: integer
+    default_value: "1"
+
+  - wayfair_field: "Force Quantity Multiplier"
+    aliases: [qty_multiplier, force_quantity_multiplier, quantity_multiplier]
+    categories: ["all"]
+    transform: integer
+    default_value: "1"
+
+  - wayfair_field: "Display Set Quantity"
+    aliases: [set_quantity, display_set_quantity, set_qty, pieces_per_set]
+    categories: ["all"]
+    transform: integer
+    default_value: "1"
+
+  # ── Weight & Shipping ─────────────────────────────────────────────────────
+
+  - wayfair_field: "Product Weight"
+    aliases: [weight, product_weight, net_weight, item_weight, weight_g]
+    categories: ["all"]
+    transform: g_to_kg
+    required: true
+
+  - wayfair_field: "Lead Time"
+    aliases: [lead_time, dispatch_days, lead_time_days]
+    categories: ["all"]
+
+  - wayfair_field: "Replacement Lead Time"
+    aliases: [replacement_lead_time, restock_lead_time, re_order_lead_time]
+    categories: ["all"]
+
+  - wayfair_field: "Flat Pack"
+    aliases: [flat_pack, flat_packed, flat_pack_yn]
+    categories: ["all"]
+    transform: yes_no
+
+  - wayfair_field: "Ship Palletized"
+    aliases: [ship_palletized, palletized, pallet_shipped]
+    categories: ["all"]
+    transform: yes_no
+
+  # ── Carton Dimensions ─────────────────────────────────────────────────────
+
+  - wayfair_field: "Carton Weight 1"
+    aliases: [carton_weight, carton_weight_1, box_weight, gross_weight, shipping_weight]
+    categories: ["all"]
+    transform: number
+    required: true
+
+  - wayfair_field: "Carton Height 1"
+    aliases: [carton_height, carton_height_1, carton_h, box_height, shipping_height]
+    categories: ["all"]
+    transform: number
+    required: true
+
+  - wayfair_field: "Carton Width 1"
+    aliases: [carton_width, carton_width_1, carton_w, box_width, shipping_width]
+    categories: ["all"]
+    transform: number
+    required: true
+
+  - wayfair_field: "Carton Depth 1"
+    aliases: [carton_depth, carton_depth_1, carton_d, box_depth, carton_length, shipping_depth]
+    categories: ["all"]
+    transform: number
+    required: true
+
+  # ── Images & Media ────────────────────────────────────────────────────────
+
+  - wayfair_field: "Image File Name or URL 1"
+    aliases: [image_1, image_url_1, main_image, primary_image, image_url, image_file_1]
+    categories: ["all"]
+    required: true
+
+  - wayfair_field: "Image File Name or URL 2"
+    aliases: [image_2, image_url_2, alt_image_1, secondary_image, image_file_2]
+    categories: ["all"]
+
+  - wayfair_field: "Image File Name or URL 3"
+    aliases: [image_3, image_url_3, alt_image_2, image_file_3]
+    categories: ["all"]
+
+  - wayfair_field: "Image File Name or URL 4"
+    aliases: [image_4, image_url_4, alt_image_3, image_file_4]
+    categories: ["all"]
+
+  - wayfair_field: "Image File Name or URL 5"
+    aliases: [image_5, image_url_5, alt_image_4, image_file_5]
+    categories: ["all"]
+
+  - wayfair_field: "Video File Name or URL 1"
+    aliases: [video_1, video_url_1, video_url, video_file]
+    categories: ["all"]
+
+  # ── Documents ─────────────────────────────────────────────────────────────
+
+  - wayfair_field: "Document File Name or URL 1"
+    aliases: [document_1, doc_url_1, document_url_1, spec_sheet_url, datasheet_url]
+    categories: ["all"]
+
+  - wayfair_field: "Document Type 1"
+    aliases: [document_type_1, doc_type_1]
+    categories: ["all"]
+
+  - wayfair_field: "Document File Name or URL 2"
+    aliases: [document_2, doc_url_2, document_url_2]
+    categories: ["all"]
+
+  - wayfair_field: "Document Type 2"
+    aliases: [document_type_2, doc_type_2]
+    categories: ["all"]
+
+  # ── Physical Attributes ───────────────────────────────────────────────────
+
+  - wayfair_field: "Overall Height - Top to Bottom"
+    aliases: [height, overall_height, product_height, item_height, height_mm, h]
+    categories: ["all"]
+    transform: number
+
+  - wayfair_field: "Overall Width - Side to Side"
+    aliases: [width, overall_width, product_width, item_width, width_mm, w]
+    categories: ["all"]
+    transform: number
+
+  - wayfair_field: "Overall Depth - Front to Back"
+    aliases: [depth, overall_depth, product_depth, item_depth, depth_mm, d]
+    categories: ["all"]
+    transform: number
+
+  - wayfair_field: "Overall Product Weight"
+    aliases: [overall_weight, gross_product_weight]
+    categories: ["all"]
+    transform: number
+
+  # ── Lighting-Specific ─────────────────────────────────────────────────────
+
+  - wayfair_field: "Number of Lights"
+    aliases: [num_lights, number_of_lights, light_count, bulb_count, num_bulbs]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+
+  - wayfair_field: "Bulb / Light Type"
+    aliases: [bulb_type, light_type, lamp_type, bulb_light_type]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+
+  - wayfair_field: "Bulb Included"
+    aliases: [bulb_included, bulbs_included, includes_bulb]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+    transform: yes_no
+
+  - wayfair_field: "Bulb Replaceability"
+    aliases: [bulb_replaceable, bulb_replaceability, replaceable_bulb]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+    transform: yes_no
+
+  - wayfair_field: "Bulb Base"
+    aliases: [bulb_base, socket_type, lamp_base, base_type]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+    transform: bulb_base
+
+  - wayfair_field: "Voltage"
+    aliases: [voltage, volts, operating_voltage]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pending Light Listing", "Light Bulbs", "Transformers"]
+    transform: integer
+
+  - wayfair_field: "Maximum Wattage (Per Bulb)"
+    aliases: [max_wattage, wattage_per_bulb, max_watts, bulb_wattage]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+    transform: number
+
+  - wayfair_field: "Wattage"
+    aliases: [wattage, total_wattage, watts, power_watts]
+    categories: ["all"]
+    transform: number
+
+  - wayfair_field: "Brightness (Lumens)"
+    aliases: [lumens, brightness, lumen_output, brightness_lumens]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing", "Light Bulbs"]
+    transform: integer
+
+  - wayfair_field: "Colour Temperature"
+    aliases: [colour_temperature, color_temperature, cct, kelvin, colour_temp]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing", "Light Bulbs"]
+    transform: number
+
+  - wayfair_field: "Finish"
+    aliases: [finish, colour, color, surface_finish, metal_finish]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+
+  - wayfair_field: "Fixture Material"
+    aliases: [fixture_material, material, body_material, frame_material]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+
+  - wayfair_field: "Overall Shape"
+    aliases: [shape, overall_shape, fixture_shape, body_shape]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+
+  - wayfair_field: "Power Source"
+    aliases: [power_source, connection_type, power_type]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+
+  - wayfair_field: "IP Rating"
+    aliases: [ip_rating, ip_class, ingress_protection]
+    categories: ["Flush Mount Lighting", "Wall Sconces"]
+    transform: integer
+
+  - wayfair_field: "Rescaled EU Energy Efficiency Class"
+    aliases: [energy_class, energy_efficiency_class, eu_energy_class, energy_rating]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Wall Sconces", "Pendant Lightt", "Pendant Light Listing"]
+
+  - wayfair_field: "Shade Material"
+    aliases: [shade_material, shade_fabric, lampshade_material]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Lampshades"]
+
+  - wayfair_field: "Shade Colour"
+    aliases: [shade_colour, shade_color, shade_finish]
+    categories: ["Chandeliers", "Flush Mount Lighting", "Table Lamps", "Lampshades"]
+
+  # ── Lampshades-Specific ───────────────────────────────────────────────────
+
+  - wayfair_field: "Material"
+    aliases: [material, fabric, lamp_material]
+    categories: ["Lampshades"]
+
+  - wayfair_field: "Colour"
+    aliases: [colour, color, primary_colour]
+    categories: ["Lampshades"]
+
+  - wayfair_field: "Attachment Type"
+    aliases: [attachment_type, fitting_type, shade_fitting]
+    categories: ["Lampshades"]
+
+  - wayfair_field: "Location"
+    aliases: [location, installation_location, use_location]
+    categories: ["Lampshades"]
+
+  # ── Light Bulbs-Specific ──────────────────────────────────────────────────
+
+  - wayfair_field: "Bulb Shape"
+    aliases: [bulb_shape, lamp_shape, globe_shape]
+    categories: ["Light Bulbs"]
+
+  - wayfair_field: "Colour Rendering Index (CRI)"
+    aliases: [cri, colour_rendering_index, color_rendering_index]
+    categories: ["Light Bulbs"]
+    transform: integer
+
+  - wayfair_field: "Dimmable"
+    aliases: [dimmable, is_dimmable, dimmable_yn]
+    categories: ["Light Bulbs"]
+    transform: yes_no
+
+  - wayfair_field: "Average Life (Hours)"
+    aliases: [lifespan, life_hours, average_life, bulb_life]
+    categories: ["Light Bulbs"]
+    transform: integer
+
+  # ── Compliance & Legal ────────────────────────────────────────────────────
+
+  - wayfair_field: "Safety Listing(s)"
+    aliases: [safety_listing, safety_certification, safety_mark, ul_listed, etl_listed]
+    categories: ["all"]
+
+  - wayfair_field: "Chemical Compliance EU/UK"
+    aliases: [chemical_compliance, reach_rohs, reach_compliance, rohs_compliance]
+    categories: ["all"]
+
+  - wayfair_field: "CE/UKCA Certified"
+    aliases: [ce_certified, ukca_certified, ce_ukca, ce_mark]
+    categories: ["all"]
+
+  - wayfair_field: "Low Voltage Directive/Electrical Equipment (Safety) Regulations"
+    aliases: [low_voltage_directive, lvd_compliant, electrical_safety_regs]
+    categories: ["all"]
+    transform: yes_no
+
+  - wayfair_field: "General Product Safety Requirement Compliance"
+    aliases: [general_product_safety, gpsr_compliant, product_safety_compliance]
+    categories: ["all"]
+
+  - wayfair_field: "EU Economic Operator/Authorised Representative"
+    aliases: [eu_rep, eu_representative, eu_economic_operator, eu_authorised_rep]
+    categories: ["all"]
+
+  - wayfair_field: "UK Economic Operation Information"
+    aliases: [uk_rep, uk_economic_operator, uk_responsible_person]
+    categories: ["all"]
+
+  - wayfair_field: "Supplier Intended and Approved Use"
+    aliases: [intended_use, approved_use, usage_type]
+    categories: ["all"]
+
+  - wayfair_field: "Wayfair Compliance Verified Programme for this product category"
+    aliases: [wayfair_compliance, compliance_verified, wf_compliance]
+    categories: ["all"]
+
+  - wayfair_field: "Hazardous Material / Dangerous Goods"
+    aliases: [hazardous, hazmat, dangerous_goods, is_hazardous]
+    categories: ["all"]
+    transform: yes_no
+
+  # ── Warranty ──────────────────────────────────────────────────────────────
+
+  - wayfair_field: "Commercial Warranty"
+    aliases: [commercial_warranty, has_warranty, warranty, includes_warranty]
+    categories: ["all"]
+    transform: yes_no
+
+  - wayfair_field: "Commercial Warranty Length"
+    aliases: [warranty_length, commercial_warranty_length, warranty_period, warranty_duration]
+    categories: ["all"]
+
+  - wayfair_field: "Product Warranty"
+    aliases: [product_warranty, consumer_warranty, has_product_warranty]
+    categories: ["all"]
+    transform: yes_no
+
+  # ── Dimensions (Assembly) ─────────────────────────────────────────────────
+
+  - wayfair_field: "Assembly Required"
+    aliases: [assembly_required, requires_assembly, self_assembly]
+    categories: ["all"]
+    transform: yes_no
+
+  - wayfair_field: "Number of Fixtures Included"
+    aliases: [fixtures_included, num_fixtures, number_of_fixtures, pack_quantity]
+    categories: ["all"]
+    transform: integer
+
+  # ── Origin & Sustainability ───────────────────────────────────────────────
+
+  - wayfair_field: "Country Of Manufacturer"
+    aliases: [country_of_origin, coo, country_of_manufacture, made_in, origin_country]
+    categories: ["all"]
+    required: true
+
+  - wayfair_field: "Sustainability & Social Responsibility Certifications (UK & EU Only)"
+    aliases: [sustainability_cert, social_responsibility, esg_cert]
+    categories: ["all"]
+    transform: yes_no
+
+  - wayfair_field: "ISTA Certified"
+    aliases: [ista_certified, ista_cert, ista_testing]
+    categories: ["all"]
+
+  - wayfair_field: "Restricted Countries"
+    aliases: [restricted_countries, country_restriction, market_restriction]
+    categories: ["all"]
+
+  - wayfair_field: "Reason For Restrictions"
+    aliases: [restriction_reason, restriction_type]
+    categories: ["all"]

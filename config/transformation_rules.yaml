@@ -1,0 +1,20 @@
+# Transformation rules applied to field values during auto-fill.
+# These define how source values are converted before writing to the template.
+#
+# Built-in transforms (referenced by name in field_mappings.yaml):
+#   truncate:N       - truncate string to N characters
+#   number           - cast to float, strip currency symbols and commas
+#   integer          - cast to int (round if float)
+#   yes_no           - normalise truthy/falsy values to "Yes" or "No"
+#   upper            - convert to uppercase
+#   lower            - convert to lowercase
+#   strip            - strip leading/trailing whitespace (always applied)
+#   title_case       - convert to Title Case
+#
+# Custom field-level transforms can be added here and referenced by name:
+custom_transforms: []
+
+# Example custom transform:
+# - name: cm_to_mm
+#   description: "Multiply by 10 (convert centimetres to millimetres)"
+#   multiply_by: 10

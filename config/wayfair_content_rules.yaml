@@ -1,0 +1,110 @@
+fields:
+  Product Name:
+    required: true
+    min_length: 10
+    max_length: 150
+    forbidden_patterns:
+      - "\\b(LLC|Inc|Ltd|Corp|Co\\.|GmbH)\\b"
+      - "(?i)wayfair"
+      - "[™©®℠]"
+    strip_patterns:
+      - "[\\r\\n\\t]+"
+      - " {2,}"
+
+  Marketing Copy:
+    required: true
+    min_length: 50
+    max_length: 4000
+    forbidden_patterns:
+      - "[™©®℠]"
+    strip_patterns:
+      - "<[^>]+>"
+      - "[\\r\\n\\t]+"
+      - " {2,}"
+
+  Feature Bullet 1:
+    required: true
+    min_length: 10
+    max_length: 500
+    strip_patterns:
+      - "^[-•*·\\s]+"
+      - "[\\r\\n\\t]+"
+      - " {2,}"
+
+  Feature Bullet 2:
+    required: false
+    min_length: 10
+    max_length: 500
+    strip_patterns:
+      - "^[-•*·\\s]+"
+      - "[\\r\\n\\t]+"
+      - " {2,}"
+
+  Feature Bullet 3:
+    required: false
+    min_length: 10
+    max_length: 500
+    strip_patterns:
+      - "^[-•*·\\s]+"
+      - "[\\r\\n\\t]+"
+      - " {2,}"
+
+  Feature Bullet 4:
+    required: false
+    min_length: 10
+    max_length: 500
+    strip_patterns:
+      - "^[-•*·\\s]+"
+      - "[\\r\\n\\t]+"
+      - " {2,}"
+
+  Feature Bullet 5:
+    required: false
+    min_length: 10
+    max_length: 500
+    strip_patterns:
+      - "^[-•*·\\s]+"
+      - "[\\r\\n\\t]+"
+      - " {2,}"
+
+# ── Amazon-to-Wayfair conversion rules ───────────────────────────────────────
+
+conversion:
+  marketing_copy:
+    min_words: 75
+    max_words: 100
+
+  feature_bullets:
+    min_count: 3
+    max_count: 5
+    min_words_preferred: 5
+    max_words_preferred: 10
+
+  # Variant attribute names that must not appear in generated content
+  variant_term_keys:
+    - colour
+    - color
+    - shade
+    - finish
+    - finish_type
+    - size
+    - diameter
+    - pack_size
+    - item_package_quantity
+    - number_of_items
+    - unit_count
+    - wattage
+    - light_color
+    - lens
+    - base
+    - set_name
+    - material
+
+  # Terms always treated as brand/supplier identifiers (additional to dynamic brand/supplier)
+  always_strip_brand_terms:
+    - LLC
+    - Inc
+    - Ltd
+    - Corp
+    - GmbH
+    - Co.

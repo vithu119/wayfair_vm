@@ -1,0 +1,487 @@
+# Configurator SOT → Wayfair Template field mappings
+# Only 'approved' status mappings are auto-applied
+mappings:
+  - wayfair_header: "Brand"
+    wayfair_aliases: ["brand"]
+    sot_key: "brand"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Supplier Part Number"
+    wayfair_aliases: ["supplier_part_number", "sku", "mpn"]
+    sot_key: "__sku__"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+    notes: "Populated from resolved SKU"
+
+  - wayfair_header: "Manufacturer Part Number"
+    wayfair_aliases: ["manufacturer_part_number", "manufacturer_sku"]
+    sot_key: "__sku__"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+    notes: "Same as Supplier Part Number — resolved SKU"
+
+  - wayfair_header: "Primary Material"
+    wayfair_aliases: ["primary_material", "material_primary", "material"]
+    sot_key: "material_primary"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Secondary Material"
+    wayfair_aliases: ["secondary_material", "material_secondary"]
+    sot_key: "material_secondary"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Finish"
+    wayfair_aliases: ["finish", "finish_name"]
+    sot_key: "finish_name"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Color"
+    wayfair_aliases: ["color", "colour", "colour_family", "color_family"]
+    sot_key: "colour_family"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "IP Rating"
+    wayfair_aliases: ["ip_rating"]
+    sot_key: "ip_rating"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Product Height"
+    wayfair_aliases: ["product_height", "height"]
+    sot_key: "height_mm"
+    categories: ["all"]
+    transformation: "mm_to_numeric"
+    source_unit: "mm"
+    target_unit: "mm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Product Width"
+    wayfair_aliases: ["product_width", "width"]
+    sot_key: "width_mm"
+    categories: ["all"]
+    transformation: "mm_to_numeric"
+    source_unit: "mm"
+    target_unit: "mm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Product Depth"
+    wayfair_aliases: ["product_depth", "depth"]
+    sot_key: "depth_mm"
+    categories: ["all"]
+    transformation: "mm_to_numeric"
+    source_unit: "mm"
+    target_unit: "mm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Product Diameter"
+    wayfair_aliases: ["product_diameter", "diameter"]
+    sot_key: "diameter_mm"
+    categories: ["all"]
+    transformation: "mm_to_numeric"
+    source_unit: "mm"
+    target_unit: "mm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Product Weight"
+    wayfair_aliases: ["product_weight", "weight"]
+    sot_key: "weight_g"
+    categories: ["all"]
+    transformation: "g_to_kg"
+    source_unit: "g"
+    target_unit: "kg"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Carton Width 1"
+    wayfair_aliases: ["carton_width_1", "carton_width", "carton_width1", "pkg_w"]
+    sot_key: "pkg_w_mm"
+    categories: ["all"]
+    transformation: "mm_to_cm"
+    source_unit: "mm"
+    target_unit: "cm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Carton Height 1"
+    wayfair_aliases: ["carton_height_1", "carton_height", "carton_height1", "pkg_h"]
+    sot_key: "pkg_h_mm"
+    categories: ["all"]
+    transformation: "mm_to_cm"
+    source_unit: "mm"
+    target_unit: "cm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Carton Depth 1"
+    wayfair_aliases: ["carton_depth_1", "carton_depth", "carton_depth1", "pkg_l"]
+    sot_key: "pkg_l_mm"
+    categories: ["all"]
+    transformation: "mm_to_cm"
+    source_unit: "mm"
+    target_unit: "cm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Carton Weight 1"
+    wayfair_aliases: ["carton_weight_1", "carton_weight", "carton_weight1", "packaged_weight"]
+    sot_key: "packaged_weight_g"
+    categories: ["all"]
+    transformation: "g_to_kg"
+    source_unit: "g"
+    target_unit: "kg"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Country of Manufacturer"
+    wayfair_aliases: ["country_of_manufacturer", "country_of_origin", "origin"]
+    sot_key: "country_of_origin"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Image File Name or URL 1"
+    wayfair_aliases: ["image_file_name_or_url_1", "image_url_1", "image_1", "img_link"]
+    sot_key: "__image_url_1__"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+    notes: "Primary image: SOT img_link → listing_data.main_image_url fallback"
+
+  - wayfair_header: "Image File Name or URL 2"
+    wayfair_aliases: ["image_file_name_or_url_2", "image_url_2", "image_2"]
+    sot_key: "__image_url_2__"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Image File Name or URL 3"
+    wayfair_aliases: ["image_file_name_or_url_3", "image_url_3", "image_3"]
+    sot_key: "__image_url_3__"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Image File Name or URL 4"
+    wayfair_aliases: ["image_file_name_or_url_4", "image_url_4", "image_4"]
+    sot_key: "__image_url_4__"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Image File Name or URL 5"
+    wayfair_aliases: ["image_file_name_or_url_5", "image_url_5", "image_5"]
+    sot_key: "__image_url_5__"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Video File Name or URL 1"
+    wayfair_aliases: ["video_file_name_or_url_1", "video_url_1", "video_1"]
+    sot_key: "__video_url_1__"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Base Cost"
+    wayfair_aliases: ["base_cost", "cost", "base_price"]
+    sot_key: "__base_cost__"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Manufacturer Suggested Retail Price"
+    wayfair_aliases: ["msrp", "rrp", "retail_price", "recommended_retail_price", "list_price"]
+    sot_key: "__amazon_price__"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+    notes: "Raw Amazon price from listing_data (no multiplier)"
+    notes: "(price + price_per_order) * 60% from listing_data UK row"
+
+  - wayfair_header: "Product Type"
+    wayfair_aliases: ["product_type", "product_subtype"]
+    sot_key: "product_subtype"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Shade Shape"
+    wayfair_aliases: ["shade_shape"]
+    sot_key: "shade_shape"
+    categories: ["Lampshades"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Voltage"
+    wayfair_aliases: ["voltage", "voltage_rating", "voltage_rating_v"]
+    sot_key: "voltage_rating_v"
+    categories: ["Chandeliers", "Flush Mount Lighting", "Lampshades", "Lighting Accessories", "Pendant Lightt", "Pendant Light Listing", "Switches, Dimmers & Outlets", "Table Lamps", "Wall Sconces", "Transformers"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Voltage"
+    wayfair_aliases: ["voltage", "voltage_v"]
+    sot_key: "voltage_v"
+    categories: ["Light Bulbs"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Product Care"
+    wayfair_aliases: ["product_care", "care_instructions", "care"]
+    sot_key: "care_instructions"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Wattage"
+    wayfair_aliases: ["wattage", "max_wattage", "max_load_w"]
+    sot_key: "max_load_w"
+    categories: ["Chandeliers", "Flush Mount Lighting", "Lampshades", "Lighting Accessories", "Pendant Lightt", "Pendant Light Listing", "Switches, Dimmers & Outlets", "Table Lamps", "Wall Sconces", "Transformers"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Wattage"
+    wayfair_aliases: ["wattage", "wattage_w"]
+    sot_key: "wattage_w"
+    categories: ["Light Bulbs"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Rescaled EU Energy Efficiency Class"
+    wayfair_aliases: ["rescaled_eu_energy_efficiency_class", "energy_efficiency_class", "energy_class"]
+    sot_key: "energy_class"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Number of Fixtures Included"
+    wayfair_aliases: ["number_of_fixtures_included", "fixtures_included", "outlet_count", "number_of_fixtures"]
+    sot_key: "outlet_count"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  # ── Lighting physical attributes ──────────────────────────────────────────
+
+  - wayfair_header: "Pieces Included"
+    wayfair_aliases: ["pieces_included", "pack_qty", "pack_quantity"]
+    sot_key: "pack_qty"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Shade Material"
+    wayfair_aliases: ["shade_material", "material_shade"]
+    sot_key: "material_shade"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Bulb / Light Type"
+    wayfair_aliases: ["bulb_light_type", "bulb_type", "light_type", "recommended_bulb_type"]
+    sot_key: "recommended_bulb_type"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Number of Lights"
+    wayfair_aliases: ["number_of_lights", "num_lights", "light_count"]
+    sot_key: "outlet_count"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Fixture Material"
+    wayfair_aliases: ["fixture_material", "body_material_primary", "frame_material"]
+    sot_key: "body_material_primary"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Glass Type"
+    wayfair_aliases: ["glass_type", "diffuser_type", "glass_finish"]
+    sot_key: "glass_finish"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Bulb Base"
+    wayfair_aliases: ["bulb_base", "bulb_base_type", "cap_base_type", "socket_type", "base_type"]
+    sot_key: "base_type"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Brightness (Lumens)"
+    wayfair_aliases: ["brightness_lumens", "lumens", "lumens_output", "lumen_output", "lumens_lm"]
+    sot_key: "lumens_lm"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Shade Colour"
+    wayfair_aliases: ["shade_colour", "shade_color", "shade_finish"]
+    sot_key: "colour_family"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Overall Shape"
+    wayfair_aliases: ["overall_shape", "fixture_shape", "body_shape", "shade_shape"]
+    sot_key: "shade_shape"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Colour Temperature"
+    wayfair_aliases: ["colour_temperature", "color_temperature", "cct", "cct_k", "colour_temp_k"]
+    sot_key: "colour_temp_k"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Dimmable"
+    wayfair_aliases: ["dimmable", "is_dimmable", "cap_dimmable"]
+    sot_key: "dimmable"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Overall Product Weight"
+    wayfair_aliases: ["overall_product_weight", "overall_weight"]
+    sot_key: "weight_g"
+    categories: ["all"]
+    transformation: "g_to_kg"
+    source_unit: "g"
+    target_unit: "kg"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Overall Maximum Height"
+    wayfair_aliases: ["overall_maximum_height", "max_height", "adj_drop_max"]
+    sot_key: "adj_drop_max_mm"
+    categories: ["all"]
+    transformation: "mm_to_cm"
+    source_unit: "mm"
+    target_unit: "cm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Overall Minimum Height"
+    wayfair_aliases: ["overall_minimum_height", "min_height", "adj_drop_min"]
+    sot_key: "adj_drop_min_mm"
+    categories: ["all"]
+    transformation: "mm_to_cm"
+    source_unit: "mm"
+    target_unit: "cm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Overall Height (Hanging)"
+    wayfair_aliases: ["overall_height_hanging", "hanging_height", "total_height"]
+    sot_key: "total_height_mm"
+    categories: ["all"]
+    transformation: "mm_to_cm"
+    source_unit: "mm"
+    target_unit: "cm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Body Height - Top to Bottom"
+    wayfair_aliases: ["body_height_top_to_bottom", "body_height", "height_top_to_bottom"]
+    sot_key: "height_mm"
+    categories: ["all"]
+    transformation: "mm_to_cm"
+    source_unit: "mm"
+    target_unit: "cm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Body Width - Side to Side"
+    wayfair_aliases: ["body_width_side_to_side", "body_width", "width_side_to_side"]
+    sot_key: "width_mm"
+    categories: ["all"]
+    transformation: "mm_to_cm"
+    source_unit: "mm"
+    target_unit: "cm"
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Display Set Quantity"
+    wayfair_aliases: ["display_set_quantity", "qty_per_pack", "pack_qty"]
+    sot_key: "qty_per_pack"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "Warranty Length"
+    wayfair_aliases: ["warranty_length", "warranty_months"]
+    sot_key: "warranty_months"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false
+
+  - wayfair_header: "HS Code"
+    wayfair_aliases: ["hs_code", "harmonized_code", "tariff_code"]
+    sot_key: "hs_code"
+    categories: ["all"]
+    transformation: null
+    mapping_status: "approved"
+    requires_manual_review: false

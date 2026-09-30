@@ -1,0 +1,13 @@
+# Header alias mapping for Wayfair template fields.
+# Each entry maps known aliases to a canonical normalized form.
+# Do NOT add unapproved business mappings here.
+# Unknown mappings must remain unmapped.
+
+aliases: []
+# Example (do not activate without approval):
+# - canonical: "supplier part number"
+#   aliases:
+#     - "sku"
+#     - "seller sku"
+#     - "part number"
+#   categories: ["all"]

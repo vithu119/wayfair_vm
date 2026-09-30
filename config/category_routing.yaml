@@ -1,0 +1,20 @@
+# Routes SOT source_tab and product_subtype to registered Wayfair template category names
+# Priority: product_subtype_exact > source_tab_exact > requires_review
+
+source_tab_routing:
+  shade: "Lampshades"
+  ceilingrose: "Lighting Accessories"
+  lampholder: "Lighting Accessories"
+  pendantholder: "Pendant Lightt"
+  bulb: "Light Bulbs"
+  wallarm: "Wall Sconces"
+
+product_subtype_routing:
+  "Lampshade": "Lampshades"
+  "Single Outlet Ceiling Rose": "Lighting Accessories"
+  "Multi-Outlet Ceiling Rose": "Lighting Accessories"
+  "Lampholder": "Lighting Accessories"
+  "Pendant Holder": "Pendant Lightt"
+  "LED Bulb": "Light Bulbs"
+  "CFL Bulb": "Light Bulbs"
+  "Wall Light": "Wall Sconces"
