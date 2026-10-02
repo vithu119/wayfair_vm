@@ -38,12 +38,29 @@ def _get_pool() -> pool.ThreadedConnectionPool:
         return _pool
 
 
+def _is_alive(conn) -> bool:
+    if conn.closed:
+        return False
+    try:
+        with conn.cursor() as cur:
+            cur.execute("SELECT 1")
+        conn.rollback()
+        return True
+    except Exception:
+        return False
+
+
 def get_conn(retries: int = 12, delay: float = 0.5):
     """Acquire a connection, retrying on pool exhaustion or server connection limit."""
     p = _get_pool()
     for attempt in range(retries):
         try:
-            return p.getconn()
+            conn = p.getconn()
+            if _is_alive(conn):
+                return conn
+            # Stale connection (server dropped it) — discard and try a fresh one
+            p.putconn(conn, close=True)
+            continue
         except (pool.PoolError, psycopg2.OperationalError):
             if attempt == retries - 1:
                 raise

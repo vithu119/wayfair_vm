@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const rawClient = axios.create({ baseURL: '/api', timeout: 10000 })
+const rawClient = axios.create({ baseURL: '/api', timeout: 30000 })
 
 export interface TokenResponse {
   access_token: string
